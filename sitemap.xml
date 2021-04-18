@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  <sitemap>
-    <loc>http://ranjithkumar007.github.io/en/sitemap.xml</loc>
-    
-      <lastmod>2021-04-18T12:22:43+05:30</lastmod>
-    
-  </sitemap>
-  
-  <sitemap>
-    <loc>http://ranjithkumar007.github.io/pt-br/sitemap.xml</loc>
-    
-  </sitemap>
-  
-</sitemapindex>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>http://ranjithkumar007.github.io/about/</loc>
+    <lastmod>2021-04-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://ranjithkumar007.github.io/authors/</loc>
+  </url><url>
+    <loc>http://ranjithkumar007.github.io/categories/</loc>
+  </url><url>
+    <loc>http://ranjithkumar007.github.io/contact/</loc>
+  </url><url>
+    <loc>http://ranjithkumar007.github.io/projects/</loc>
+  </url><url>
+    <loc>http://ranjithkumar007.github.io/</loc>
+  </url><url>
+    <loc>http://ranjithkumar007.github.io/series/</loc>
+  </url><url>
+    <loc>http://ranjithkumar007.github.io/tags/</loc>
+  </url>
+</urlset>

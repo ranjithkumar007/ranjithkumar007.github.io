@@ -5,15 +5,32 @@
     <link>http://ranjithkumar007.github.io/</link>
     <description>Recent content on Ranjith Kumar</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Sun, 18 Apr 2021 12:22:43 +0530</lastBuildDate><atom:link href="http://ranjithkumar007.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language><atom:link href="http://ranjithkumar007.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Test2page</title>
-      <link>http://ranjithkumar007.github.io/post/test2page/</link>
-      <pubDate>Sun, 18 Apr 2021 12:22:43 +0530</pubDate>
+      <title>About</title>
+      <link>http://ranjithkumar007.github.io/about/</link>
+      <pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://ranjithkumar007.github.io/post/test2page/</guid>
+      <guid>http://ranjithkumar007.github.io/about/</guid>
       <description></description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>http://ranjithkumar007.github.io/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://ranjithkumar007.github.io/contact/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>http://ranjithkumar007.github.io/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://ranjithkumar007.github.io/projects/</guid>
+      <description>Nothing to see here&amp;hellip; Move along!</description>
     </item>
     
   </channel>
