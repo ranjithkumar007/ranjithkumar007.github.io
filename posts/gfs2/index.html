@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="color-scheme" content="light dark">
+
+    
+      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+    
+
+    <meta name="author" content="Ranjith">
+    <meta name="description" content="Disclaimer: Actual GFS paper is a must read and is easy to follow, blog is only a summary intended for self motivation and checkpointing.
+File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.">
+    <meta name="keywords" content="blog,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Distributed File systems"/>
+<meta name="twitter:description" content="Disclaimer: Actual GFS paper is a must read and is easy to follow, blog is only a summary intended for self motivation and checkpointing.
+File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server."/>
+
+    <meta property="og:title" content="Distributed File systems" />
+<meta property="og:description" content="Disclaimer: Actual GFS paper is a must read and is easy to follow, blog is only a summary intended for self motivation and checkpointing.
+File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://ranjithkumar007.github.io/posts/gfs2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-29T18:24:30&#43;05:30" />
+<meta property="article:modified_time" content="2021-05-29T18:24:30&#43;05:30" />
+
+
+
+    <title>
+  Distributed File systems · Ranjith Kumar
+</title>
+
+    
+      <link rel="canonical" href="http://ranjithkumar007.github.io/posts/gfs2/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.1.7" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.04d6bedce375c4fcb6bf1e2c89e70f9e45a3431f1926a9f5f63749517718d366.css" integrity="sha256-BNa&#43;3ON1xPy2vx4siecPnkWjQx8ZJqn19jdJUXcY02Y=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.dde8a61eb31a32353b4baf3d9113f03c4ea2a8ca9bb736f59ca2d2b2cb664f0b.css" integrity="sha256-3eimHrMaMjU7S689kRPwPE6iqMqbtzb1nKLSsstmTws=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+
+    <meta name="generator" content="Hugo 0.82.0" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=""
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Ranjith Kumar
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://ranjithkumar007.github.io/posts/gfs2/">
+              Distributed File systems
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-05-29T18:24:30&#43;05:30'>
+                May 29, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              6-minute read
+            </span>
+          </div>
+          
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <a href="/tags/ds/">DS</a>
+      <span class="separator">•</span>
+    <a href="/tags/gfs/">GFS</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        
+              <hr>
+              Contents
+               <div id="toc"> <nav id="TableOfContents">
+  <ul>
+    <li><a href="#gfs">GFS</a>
+      <ul>
+        <li><a href="#assumptionsrequirements">Assumptions/Requirements</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#master">Master</a></li>
+        <li><a href="#fault-tolerance">Fault Tolerance</a></li>
+        <li><a href="#misc">Misc</a></li>
+      </ul>
+    </li>
+    <li><a href="#colossus">Colossus</a></li>
+    <li><a href="#hdfs">HDFS</a></li>
+    <li><a href="#nfs">NFS</a></li>
+  </ul>
+</nav> </div>
+               <hr>
+        
+        <p>Disclaimer: Actual GFS paper is a must read and is easy to follow, blog is only a summary intended for self motivation and checkpointing.</p>
+<p>File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.</p>
+<p>Design goals of DFS include scalability, high availability, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance etc.</p>
+<h2 id="gfs">
+  GFS
+  <a class="heading-link" href="#gfs">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>Google file system is a scalable distributed file system for large distributed data applications.</p>
+<h3 id="assumptionsrequirements">
+  Assumptions/Requirements
+  <a class="heading-link" href="#assumptionsrequirements">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<ul>
+<li>servers: Inexpensive commodity components where failure is a norm.</li>
+<li>file size: Large files are common. no need to optimize for small files.</li>
+<li>workload: reads - large streaming reads and small random reads. writes - many large, sequential writes that append data to files. rare random writes.</li>
+<li>clients: need well-defined semantics for multiple concurrent clients appending to same file.</li>
+<li>latency: high sustained bandwidth more important than low latency.</li>
+</ul>
+<h3 id="architecture">
+  Architecture
+  <a class="heading-link" href="#architecture">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>GFS consists of a single master and multiple chunkservers and is accessed by multiple clients. Files are divided(sharded) into fixed-sized chunks of 64MB and is spread across chunkservers. Each chunk is uniquely identified by a 64 bit global ID(chunk handler). It is assigned by the master at the time of chunk creation. Chunks(stored as files on local disks) are replicated across multiple servers for fault tolerance. GFS client implements the file system API and communicates with the master(for metadata) and chunkservers(for read/write of data) on behalf of the application. Flow is depicted in the below figure.</p>
+<p><img src="/images/gfs_architecture.png" alt="GFS architecture"></p>
+<h3 id="master">
+  Master
+  <a class="heading-link" href="#master">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>The master maintains all the file system metadata. It is responsible for system wide tasks like chunk lease management, garbage collection. It also periodically sends HeartBeat messages to the chunkserver to give it instructions and collect its state.</p>
+<h4 id="single-master-design">
+  Single master design
+  <a class="heading-link" href="#single-master-design">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>(+ve) simpler design</li>
+<li>(+ve) with global knowledge, master can make optimal system wide decisions(ex: chunk placement)</li>
+<li>(-ve) single point of failure. Check fault tolerance section.</li>
+<li>(-ve) performance bottleneck. Minimized by making master involve only in control path and chunkservers handle data path. Clients cache master&rsquo;s response for limited time. Clients also try to batch messages into a single control message to master.</li>
+<li>(-ve) manual intervention for master failure.</li>
+<li>(-ve) metadata must fit in master RAM.</li>
+</ul>
+<h4 id="metadata">
+  Metadata
+  <a class="heading-link" href="#metadata">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>metadata includes file and chunk namespaces, file to list of chunk handles mapping, chunk handle to chunk info(version number, primary, lease time, list of chunk servers/replicas) mapping.</li>
+<li>All metadata is kept in memory. Though only first two are persisted(operation log), third info is collected at startup time from chunkservers and is updated by continous monitoring of chunk servers(via heartbeat messages). This is preferred over a coordinated view with master as failures in chunk servers are common and also as chunk server has final say in what chunk it has.</li>
+<li>Chunk size is 64MB. Large chunk size =&gt; lesser metadata =&gt; lesser interactions with master. Internal fragmentation is avoided by lazy space allocation(delay space allocation until size threshold is reached. similar to <a href="https://en.wikipedia.org/wiki/Allocate-on-flush">linux</a>).</li>
+</ul>
+<h4 id="gaurantees">
+  Gaurantees
+  <a class="heading-link" href="#gaurantees">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>File namespace mutations are atomic.</li>
+<li>Record append is performed at least once(offset choosen by GFS). Application need to handle duplicates. Atleast once is because if write fails on secondary, client retries the write =&gt; data can be appended more than once.</li>
+<li>Consistency
+<ul>
+<li>A file region is consistent if all clients will always see the same data, regardless of which replicas they read from. It&rsquo;s defined after a file data mutation(write/record append) if it is consistent and clients will see what the mutation writes in its entirety.</li>
+<li>mutation success, no concurrent writers =&gt; defined</li>
+<li>mutations success, concurrent writes =&gt; undefined but consistent</li>
+<li>mutation failure =&gt; inconsistent</li>
+</ul>
+</li>
+<li>relaxed consistency and mutation order
+<ul>
+<li>The master grants a chunk lease to one of the replicas called primary. global mutation order is defined first by the lease grant order chosen by the master, and within a lease by the serial numbers assigned by the primary.</li>
+<li>Lease has a timeout, which helps in solving the split-brain problem. Lease extension request/grants are done via heartbeats.</li>
+<li>Each secondary replica applies mutations in the same serial order defined by primary. Note that this doesn&rsquo;t imply data needs to go through primary(data is pushed linearly along a carefully picked chain of chunkservers in a pipelined fashion).</li>
+</ul>
+</li>
+</ul>
+<h4 id="master-operations">
+  Master Operations
+  <a class="heading-link" href="#master-operations">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>Namespace management using locking
+<ul>
+<li>logically represents its namespace as a lookup table mapping full pathnames(no per directory data structure) to metadata. uses prefix compression on this table for memory efficiency.</li>
+<li>for any op, acquire read locks on directory names in full path. and a read/write lock on basename.</li>
+</ul>
+</li>
+<li>Replica placement
+<ul>
+<li>Goal: maximize data reliability and availability, maximize network bandwidth utilization</li>
+<li>spread chunks across machines and racks(disk failures/rack failures)</li>
+</ul>
+</li>
+<li>Creation, Re-replication, Rebalancing
+<ul>
+<li>Chunks are created on servers with below avg disk utilization(+ follow replica placement goal).</li>
+<li>If number of available chunk replicas falls below a threshold, master re-replicates the chunk.</li>
+<li>Master periodically examines the current replica distribution and moves replicas for better disk space and load balancing.</li>
+</ul>
+</li>
+<li>Garbage Collection
+<ul>
+<li>After a file is deleted, file -&gt; chunks mapping is removed. Via heartbeats with chunkservers, master informs the deleted chunks and chunkserver is free to delete them.</li>
+<li>uses chunk version to detect stale data and garbage collects it.</li>
+</ul>
+</li>
+</ul>
+<h3 id="fault-tolerance">
+  Fault Tolerance
+  <a class="heading-link" href="#fault-tolerance">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<ul>
+<li>Fast recovery
+<ul>
+<li>Master and chunk servers startup time is low as the size of metadata is small(order of MBs).</li>
+<li>Metadata is read from operation log. Logs are replayed to recover at startup. Checkpointing is done to minimize recovery time. Master also fetches chunk location info from chunk servers.</li>
+</ul>
+</li>
+<li>Replication
+<ul>
+<li>chunk replication(check Master operations)</li>
+<li>master replication
+<ul>
+<li>metadata in operation log and checkpoints are replicated to remote machines.</li>
+<li>manual intervention is required to start a new master on failure.</li>
+<li>Clients use a canonical name which is a DNS alias for master.</li>
+<li>Shadow masters(continously apply logs by reading from a replica of master&rsquo;s operation log) provide read-only access when the primary master is down =&gt; high availability for reads.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Data integrity
+<ul>
+<li>chunk is broken up into 64 KB blocks. Each has a corresponding 32 bit checksum and is verified during reads. Note that a corrupted chunk is like chunk loss, so chunk will be re-replicated.</li>
+</ul>
+</li>
+</ul>
+<h3 id="misc">
+  Misc
+  <a class="heading-link" href="#misc">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<ul>
+<li>Snapshot
+<ul>
+<li>snapshot makes a copy of a file or a directory tree almost instantaneously, while minimizing any interruptions of ongoing mutations.</li>
+<li>copy-on-write(cow) technique used. New chunk gets created only when the client requests to write on a snapshotted chunk(distinguished from normal chunks by having &gt;1 reference count which gets incremented during snapshot operation). Upon write request, copies of a chunk and all its replicas are made on same node to avoid network i/o.</li>
+</ul>
+</li>
+<li>Caching
+<ul>
+<li>Neither the client nor the chunkserver caches file data since expected application workload has working sets too large to be cached. So, simpler to avoid cache =&gt; no cache coherency issues.</li>
+<li>However clients cache metadata. chunkservers file data are backed by linux’s page cache.</li>
+</ul>
+</li>
+</ul>
+<h2 id="colossus">
+  Colossus
+  <a class="heading-link" href="#colossus">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h2 id="hdfs">
+  HDFS
+  <a class="heading-link" href="#hdfs">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h2 id="nfs">
+  NFS
+  <a class="heading-link" href="#nfs">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>-</p>
+      
+      
+      
+        
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+        
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.235666b114443867d43eeb5799d51f6252965e5163f338285e113fa381d3d27e.js" integrity="sha256-I1ZmsRREOGfUPutXmdUfYlKWXlFj8zgoXhE/o4HT0n4="></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+  </body>
+
+</html>
