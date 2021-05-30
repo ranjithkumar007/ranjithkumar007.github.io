@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://ranjithkumar007.github.io/posts/gfs2/</loc>
+    <loc>http://ranjithkumar007.github.io/categories/</loc>
+    <lastmod>2021-05-29T18:24:30+05:30</lastmod>
+  </url><url>
+    <loc>http://ranjithkumar007.github.io/posts/dfs/</loc>
     <lastmod>2021-05-29T18:24:30+05:30</lastmod>
   </url><url>
     <loc>http://ranjithkumar007.github.io/tags/ds/</loc>
     <lastmod>2021-05-29T18:24:30+05:30</lastmod>
   </url><url>
-    <loc>http://ranjithkumar007.github.io/tags/gfs/</loc>
+    <loc>http://ranjithkumar007.github.io/categories/paper-reading/</loc>
     <lastmod>2021-05-29T18:24:30+05:30</lastmod>
   </url><url>
     <loc>http://ranjithkumar007.github.io/posts/</loc>
@@ -23,15 +26,7 @@
     <loc>http://ranjithkumar007.github.io/about/</loc>
     <lastmod>2021-04-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://ranjithkumar007.github.io/tags/emoji/</loc>
-    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://ranjithkumar007.github.io/posts/gfs/</loc>
-    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>http://ranjithkumar007.github.io/authors/</loc>
-  </url><url>
-    <loc>http://ranjithkumar007.github.io/categories/</loc>
   </url><url>
     <loc>http://ranjithkumar007.github.io/contact/</loc>
   </url><url>

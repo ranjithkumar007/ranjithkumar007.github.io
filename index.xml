@@ -9,12 +9,13 @@
     <lastBuildDate>Sat, 29 May 2021 18:24:30 +0530</lastBuildDate><atom:link href="http://ranjithkumar007.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Distributed File systems</title>
-      <link>http://ranjithkumar007.github.io/posts/gfs2/</link>
+      <link>http://ranjithkumar007.github.io/posts/dfs/</link>
       <pubDate>Sat, 29 May 2021 18:24:30 +0530</pubDate>
       
-      <guid>http://ranjithkumar007.github.io/posts/gfs2/</guid>
-      <description>Disclaimer: Actual GFS paper is a must read and is easy to follow, blog is only a summary intended for self motivation and checkpointing.
-File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.</description>
+      <guid>http://ranjithkumar007.github.io/posts/dfs/</guid>
+      <description>Disclaimer: Actual GFS paper is a must read, blog is only a summary intended for self motivation and checkpointing.
+File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.
+Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance etc.</description>
     </item>
     
     <item>
@@ -24,15 +25,6 @@ File system controls storage and retireval of data. Distributed File system(DFS)
       
       <guid>http://ranjithkumar007.github.io/about/</guid>
       <description>I am Ranjith Kumar. I am currently working as a Software Engineer at Rubrik. I graduated from IIT Kharagpur with a Bachelor&amp;rsquo;s + Master&amp;rsquo;s(Dual degree) in Computer Science in 2020.</description>
-    </item>
-    
-    <item>
-      <title>Emoji Support</title>
-      <link>http://ranjithkumar007.github.io/posts/gfs/</link>
-      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://ranjithkumar007.github.io/posts/gfs/</guid>
-      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
     </item>
     
     <item>

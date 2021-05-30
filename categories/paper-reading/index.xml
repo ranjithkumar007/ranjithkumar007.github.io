@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Ranjith Kumar</title>
-    <link>http://ranjithkumar007.github.io/posts/</link>
-    <description>Recent content in Posts on Ranjith Kumar</description>
+    <title>Paper reading on Ranjith Kumar</title>
+    <link>http://ranjithkumar007.github.io/categories/paper-reading/</link>
+    <description>Recent content in Paper reading on Ranjith Kumar</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 29 May 2021 18:24:30 +0530</lastBuildDate><atom:link href="http://ranjithkumar007.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 May 2021 18:24:30 +0530</lastBuildDate><atom:link href="http://ranjithkumar007.github.io/categories/paper-reading/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Distributed File systems</title>
       <link>http://ranjithkumar007.github.io/posts/dfs/</link>
