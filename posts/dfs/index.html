@@ -15,19 +15,19 @@
     <meta name="author" content="Ranjith">
     <meta name="description" content="Disclaimer: Actual GFS paper 1 is a must read, blog is only a summary intended for self motivation and checkpointing.
 File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.
-Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity etc.">
+Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity, efficient redundancy(erasure coding) etc.">
     <meta name="keywords" content="blog,personal">
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Distributed File systems"/>
 <meta name="twitter:description" content="Disclaimer: Actual GFS paper 1 is a must read, blog is only a summary intended for self motivation and checkpointing.
 File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.
-Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity etc."/>
+Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity, efficient redundancy(erasure coding) etc."/>
 
     <meta property="og:title" content="Distributed File systems" />
 <meta property="og:description" content="Disclaimer: Actual GFS paper 1 is a must read, blog is only a summary intended for self motivation and checkpointing.
 File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.
-Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity etc." />
+Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity, efficient redundancy(erasure coding) etc." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://ranjithkumar007.github.io/posts/dfs/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-05-29T18:24:30&#43;05:30" />
@@ -186,7 +186,7 @@ Design goals of DFS include scalability, high availability, fault tolerance, net
         
         <p>Disclaimer: Actual GFS paper <a href="#references">1</a> is a must read, blog is only a summary intended for self motivation and checkpointing.</p>
 <p>File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.</p>
-<p>Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity etc..</p>
+<p>Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity, efficient redundancy(erasure coding) etc..</p>
 <h2 id="gfs">
   GFS
   <a class="heading-link" href="#gfs">
