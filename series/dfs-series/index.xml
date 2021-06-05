@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ranjith Kumar</title>
-    <link>http://ranjithkumar007.github.io/</link>
-    <description>Recent content on Ranjith Kumar</description>
+    <title>DFS series on Ranjith Kumar</title>
+    <link>http://ranjithkumar007.github.io/series/dfs-series/</link>
+    <description>Recent content in DFS series on Ranjith Kumar</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 05 Jun 2021 22:58:20 +0530</lastBuildDate><atom:link href="http://ranjithkumar007.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Jun 2021 22:58:20 +0530</lastBuildDate><atom:link href="http://ranjithkumar007.github.io/series/dfs-series/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Distributed File systems 2</title>
       <link>http://ranjithkumar007.github.io/posts/dfs2/</link>
@@ -26,33 +26,6 @@ HDFS    NFS    SeaweedFS/MinIO    </description>
       <description>Disclaimer: Actual GFS paper 1 is a must read, blog is only a summary intended for self motivation and checkpointing.
 File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.
 Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity etc.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>http://ranjithkumar007.github.io/about/</link>
-      <pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>http://ranjithkumar007.github.io/about/</guid>
-      <description>I am Ranjith Kumar. I am currently working as a Software Engineer at Rubrik. I graduated from IIT Kharagpur with a Bachelor&amp;rsquo;s + Master&amp;rsquo;s(Dual degree) in Computer Science in 2020.</description>
-    </item>
-    
-    <item>
-      <title>Contact</title>
-      <link>http://ranjithkumar007.github.io/contact/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://ranjithkumar007.github.io/contact/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Projects</title>
-      <link>http://ranjithkumar007.github.io/projects/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://ranjithkumar007.github.io/projects/</guid>
-      <description></description>
     </item>
     
   </channel>

@@ -5,6 +5,16 @@
     <link>http://ranjithkumar007.github.io/series/</link>
     <description>Recent content in Series on Ranjith Kumar</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="http://ranjithkumar007.github.io/series/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Sat, 05 Jun 2021 22:58:20 +0530</lastBuildDate><atom:link href="http://ranjithkumar007.github.io/series/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DFS series</title>
+      <link>http://ranjithkumar007.github.io/series/dfs-series/</link>
+      <pubDate>Sat, 05 Jun 2021 22:58:20 +0530</pubDate>
+      
+      <guid>http://ranjithkumar007.github.io/series/dfs-series/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

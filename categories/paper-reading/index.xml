@@ -6,16 +6,26 @@
     <description>Recent content in Paper reading on Ranjith Kumar</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 29 May 2021 18:24:30 +0530</lastBuildDate><atom:link href="http://ranjithkumar007.github.io/categories/paper-reading/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Jun 2021 22:58:20 +0530</lastBuildDate><atom:link href="http://ranjithkumar007.github.io/categories/paper-reading/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Distributed File systems 2</title>
+      <link>http://ranjithkumar007.github.io/posts/dfs2/</link>
+      <pubDate>Sat, 05 Jun 2021 22:58:20 +0530</pubDate>
+      
+      <guid>http://ranjithkumar007.github.io/posts/dfs2/</guid>
+      <description>TODO
+HDFS    NFS    SeaweedFS/MinIO    </description>
+    </item>
+    
     <item>
       <title>Distributed File systems</title>
       <link>http://ranjithkumar007.github.io/posts/dfs/</link>
       <pubDate>Sat, 29 May 2021 18:24:30 +0530</pubDate>
       
       <guid>http://ranjithkumar007.github.io/posts/dfs/</guid>
-      <description>Disclaimer: Actual GFS paper is a must read, blog is only a summary intended for self motivation and checkpointing.
+      <description>Disclaimer: Actual GFS paper 1 is a must read, blog is only a summary intended for self motivation and checkpointing.
 File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.
-Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance etc.</description>
+Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity etc.</description>
     </item>
     
   </channel>

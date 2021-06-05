@@ -13,25 +13,26 @@
     
 
     <meta name="author" content="Ranjith">
-    <meta name="description" content="Disclaimer: Actual GFS paper is a must read, blog is only a summary intended for self motivation and checkpointing.
+    <meta name="description" content="Disclaimer: Actual GFS paper 1 is a must read, blog is only a summary intended for self motivation and checkpointing.
 File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.
-Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance etc.">
+Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity etc.">
     <meta name="keywords" content="blog,personal">
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Distributed File systems"/>
-<meta name="twitter:description" content="Disclaimer: Actual GFS paper is a must read, blog is only a summary intended for self motivation and checkpointing.
+<meta name="twitter:description" content="Disclaimer: Actual GFS paper 1 is a must read, blog is only a summary intended for self motivation and checkpointing.
 File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.
-Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance etc."/>
+Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity etc."/>
 
     <meta property="og:title" content="Distributed File systems" />
-<meta property="og:description" content="Disclaimer: Actual GFS paper is a must read, blog is only a summary intended for self motivation and checkpointing.
+<meta property="og:description" content="Disclaimer: Actual GFS paper 1 is a must read, blog is only a summary intended for self motivation and checkpointing.
 File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.
-Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance etc." />
+Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity etc." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://ranjithkumar007.github.io/posts/dfs/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-05-29T18:24:30&#43;05:30" />
 <meta property="article:modified_time" content="2021-05-29T18:24:30&#43;05:30" />
+<meta property="og:see_also" content="http://ranjithkumar007.github.io/posts/dfs2/" />
 
 
 
@@ -143,7 +144,7 @@ Design goals of DFS include scalability, high availability, fault tolerance, net
             </span>
             <span class="reading-time">
               <i class="fa fa-clock-o" aria-hidden="true"></i>
-              7-minute read
+              8-minute read
             </span>
           </div>
           
@@ -151,10 +152,7 @@ Design goals of DFS include scalability, high availability, fault tolerance, net
   <i class="fa fa-folder" aria-hidden="true"></i>
     <a href="/categories/paper-reading/">Paper reading</a></div>
 
-          <div class="tags">
-  <i class="fa fa-tag" aria-hidden="true"></i>
-    <a href="/tags/ds/">DS</a></div>
-
+          
         </div>
       </header>
 
@@ -174,17 +172,21 @@ Design goals of DFS include scalability, high availability, fault tolerance, net
         <li><a href="#misc">Misc</a></li>
       </ul>
     </li>
-    <li><a href="#colossus">Colossus</a></li>
-    <li><a href="#hdfs">HDFS</a></li>
-    <li><a href="#nfs">NFS</a></li>
+    <li><a href="#colossus">Colossus</a>
+      <ul>
+        <li><a href="#problems-with-gfs">Problems with GFS</a></li>
+        <li><a href="#architecture-1">Architecture</a></li>
+        <li><a href="#benefits">Benefits</a></li>
+      </ul>
+    </li>
     <li><a href="#references">References</a></li>
   </ul>
 </nav> </div>
                <hr>
         
-        <p>Disclaimer: Actual GFS paper is a must read, blog is only a summary intended for self motivation and checkpointing.</p>
+        <p>Disclaimer: Actual GFS paper <a href="#references">1</a> is a must read, blog is only a summary intended for self motivation and checkpointing.</p>
 <p>File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.</p>
-<p>Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance etc.</p>
+<p>Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity etc..</p>
 <h2 id="gfs">
   GFS
   <a class="heading-link" href="#gfs">
@@ -369,18 +371,53 @@ Design goals of DFS include scalability, high availability, fault tolerance, net
     <i class="fa fa-link" aria-hidden="true"></i>
   </a>
 </h2>
-<h2 id="hdfs">
-  HDFS
-  <a class="heading-link" href="#hdfs">
+<p>There is very limited information on how Colossus works in depth. This is a excerpt mainly from blog and interview(<a href="#references">3, 4</a>).</p>
+<h3 id="problems-with-gfs">
+  Problems with GFS
+  <a class="heading-link" href="#problems-with-gfs">
     <i class="fa fa-link" aria-hidden="true"></i>
   </a>
-</h2>
-<h2 id="nfs">
-  NFS
-  <a class="heading-link" href="#nfs">
+</h3>
+<ul>
+<li>Issues around single master design
+<ul>
+<li>large number of files. metadata coudn’t fit into master RAM. Support for small sized files is also a problem, again due to more metadata.</li>
+<li>large number of clients =&gt; CPU processing of master became a bottleneck to serve all clients.</li>
+<li>Lack of automatic Failover of master =&gt; manual intervention and down time meant lot of management overhead.</li>
+</ul>
+</li>
+<li>GFS was designed for batching applications like Crawling, indexing. It&rsquo;s explicitly <a href="#assumptionsrequirements">called out</a> in GFS. But this became an issue with the rise of Latency sensitive user facing applications like Gmail.</li>
+<li>Loose consistency for recordappend imposed problems for applications(as file systems generally impose stricter consistency). Quote from <a href="#references">interview[4]</a>. “the consistency was designed to be very loose. In retrospect, that turned out to be a lot more painful than anyone expected”.</li>
+</ul>
+<h3 id="architecture-1">
+  Architecture
+  <a class="heading-link" href="#architecture-1">
     <i class="fa fa-link" aria-hidden="true"></i>
   </a>
-</h2>
+</h3>
+<p>Colossus is the next-gen of GFS developed to meet the scalability requirements of Google internal services and customers(cloud offerings).</p>
+<p><img src="/images/colossus.jpg" alt="Colossus architecture">
+Compared to GFS, the <a href="#master-operations">Master operations</a> seem to be split into Curators, Metastore and Custodians solving the single master design issues.</p>
+<ul>
+<li>Client library: how an application or service interacts with Colossus</li>
+<li>Curators: scalable metadata service. Clients talk directly to curators for control operations(eg:file creation)</li>
+<li>Metadata database: Curators store file system metadata in NoSQL database, BigTable.</li>
+<li>D File Servers:. Data flows directly between clients and “D” file servers (network attached disks). Similar to chunk servers in gfs.</li>
+<li>Custodians: background storage managers. maintaining the durability and availability of data.</li>
+</ul>
+<h3 id="benefits">
+  Benefits
+  <a class="heading-link" href="#benefits">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<ul>
+<li>With Colossus, a single cluster is scalable to exabytes of storage and 10000&rsquo;s of Machines.</li>
+<li>Colossus powers all internal services at Google like Youtube, Ads MapReduce and also Cloud services offered to customers.</li>
+<li>To ensure each application has the storage it requires, Colossus provides a range of service tiers. Applications use these different tiers by specifying I/O, availability, and durability requirements.</li>
+<li>Storage efficiency is maximized by using a mix of flash and disk storage. Hot data is put in flash and then in disk. For disk based storages, hot data is evenly distributed across all the drives in a cluster. Data is then rebalanced and moved to larger capacity drives as it ages and becomes colder.</li>
+<li>GCS uses similar hot data placement and cold data rebalancing techniques like colossus across multiple clusters in a GCP region.</li>
+</ul>
 <h2 id="references">
   References
   <a class="heading-link" href="#references">
@@ -389,7 +426,10 @@ Design goals of DFS include scalability, high availability, fault tolerance, net
 </h2>
 <ul>
 <li><a href="https://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf">GFS Paper</a></li>
-<li><a href="https://www.youtube.com/watch?v=EpIgvowZr00">GFS Lecture</a></li>
+<li><a href="https://www.youtube.com/watch?v=EpIgvowZr00">GFS Lecture by Robert Morris</a></li>
+<li><a href="https://cloud.google.com/blog/products/storage-data-transfer/a-peek-behind-colossus-googles-file-system">Colossus Blog</a></li>
+<li><a href="https://queue.acm.org/detail.cfm?id=1594206">Interview on Evolution of GFS</a></li>
+<li><a href="https://web.archive.org/web/20160324185413/http://static.googleusercontent.com/media/research.google.com/en/us/university/relations/facultysummit2010/storage_architecture_and_challenges.pdf">Storage Architecture and Challenges</a></li>
 </ul>
 
       </div>
@@ -397,6 +437,35 @@ Design goals of DFS include scalability, high availability, fault tolerance, net
 
       <footer>
         
+
+<section class="see-also">
+  
+    
+    
+    
+      <h3 id="see-also-in-dfs-series">
+        See also in DFS series
+        <a class="heading-link" href="#see-also-in-dfs-series">
+          <i class="fa fa-link" aria-hidden="true"></i>
+        </a>
+      </h3>
+      <nav>
+        <ul>
+        
+        
+          
+            <li>
+              <a href="/posts/dfs2/">Distributed File systems 2</a>
+            </li>
+          
+        
+          
+        
+        </ul>
+      </nav>
+    
+  
+</section>
 
 
         
