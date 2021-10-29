@@ -14,7 +14,7 @@
       
       <guid>http://ranjithkumar007.github.io/posts/dfs2/</guid>
       <description>TODO
-HDFS    NFS    SeaweedFS/MinIO    </description>
+NFS    MinIO    </description>
     </item>
     
     <item>
@@ -23,9 +23,9 @@ HDFS    NFS    SeaweedFS/MinIO    </description>
       <pubDate>Sat, 29 May 2021 18:24:30 +0530</pubDate>
       
       <guid>http://ranjithkumar007.github.io/posts/dfs/</guid>
-      <description>Disclaimer: Actual GFS paper 1 is a must read, blog is only a summary intended for self motivation and checkpointing.
+      <description>Disclaimer: Blog is only a summary intended for self motivation to read about a topic and improve writing skills.
 File system controls storage and retireval of data. Distributed File system(DFS) is a distributed implementation of file system which implies there are more entities involved like more machines, network etc which brings additional complexities, but the aim is to make it look like a file system on single server.
-Design goals of DFS include scalability, high availability, fault tolerance, network transparency(ex: NFS mount makes remote file access transparent), trading off between consistency and performance, Data Integrity, efficient redundancy(erasure coding), Caching etc.</description>
+Design aspects of DFS generally include scalability, high availability, fault tolerance, network transparency(ex: remote mount points), consistency and performance trade offs, Data Integrity, efficient redundancy(erasure coding), Caching etc.</description>
     </item>
     
     <item>
